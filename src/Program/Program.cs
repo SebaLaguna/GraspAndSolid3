@@ -14,7 +14,6 @@ namespace Full_GRASP_And_SOLID
     public class Program
     {
         private static ArrayList productCatalog = new ArrayList();
-
         private static ArrayList equipmentCatalog = new ArrayList();
 
         public static void Main(string[] args)
@@ -26,9 +25,13 @@ namespace Full_GRASP_And_SOLID
             recipe.AddStep(new Step(GetProduct("Café"), 100, GetEquipment("Cafetera"), 120));
             recipe.AddStep(new Step(GetProduct("Leche"), 200, GetEquipment("Hervidor"), 60));
 
-            AllInOnePrinter printer = new AllInOnePrinter();
-            printer.PrintRecipe(recipe, Destination.Console);
-            printer.PrintRecipe(recipe, Destination.File);
+            // Crear una instancia de ConsolePrinter y FilePrinter
+            IPrinter consolePrinter = new ConsolePrinter();
+            IPrinter filePrinter = new FilePrinter("Recipe.txt");
+
+            // Imprimir la receta en la consola y en un archivo
+            consolePrinter.Print(recipe.GetTextToPrint());
+            filePrinter.Print(recipe.GetTextToPrint());
         }
 
         private static void PopulateCatalogs()
